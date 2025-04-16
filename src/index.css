@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+
+  background: rgb(131, 58, 180);
+  background: -moz-linear-gradient(
+    90deg,
+    hsl(0, 0%, 20%) 0%,
+    hsl(0, 0%, 10%) 50%,
+    hsl(0, 0%, 6%) 100%
+  );
+  background: -webkit-linear-gradient(
+    90deg,
+    hsl(0, 0%, 20%) 0%,
+    hsl(0, 0%, 10%) 50%,
+    hsl(0, 0%, 6%) 100%
+  );
+  background: linear-gradient(
+    90deg,
+    hsl(0, 0%, 20%) 0%,
+    hsl(0, 0%, 10%) 50%,
+    hsl(0, 0%, 6%) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endColorstr="#fcb045",GradientType=1);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  h1 {
+    line-height: 1.7;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box !important;
+  }
+  html,
+  body {
+    height: 100%;
+  }
+}
+
+/* Hero specific styles */
+.hero-container {
+  position: relative;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid black;
+  overflow: hidden; /* Hide anything spilling out */
+}
+
+/* Lines styling */
+.lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 90vw;
+  margin: auto;
+  z-index: -1; /* Behind the text */
+}
+
+.line {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.line::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 15vh;
+  width: 100%;
+  top: -50%;
+  left: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    hsl(0, 0%, 100%) 75%,
+    hsl(51, 99%, 47%) 100%
+  );
+  animation: drop 7s infinite;
+  animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+}
+
+/* Different margin for each line */
+.line:nth-child(1) {
+  margin-left: -27%;
+}
+.line:nth-child(1)::after {
+  animation-delay: 2s;
+}
+
+.line:nth-child(3) {
+  margin-left: 27%;
+}
+.line:nth-child(3)::after {
+  animation-delay: 2.5s;
+}
+
+/* Keyframes for drop animation */
+@keyframes drop {
+  0% {
+    top: -50%;
+  }
+  100% {
+    top: 110%;
+  }
+}
+
+/* Blurred background effect */
+.blurEffect {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: -2; /* Behind content */
+  pointer-events: none;
+}
+
+/* Text content */
+h2,
+p {
+  z-index: 10; /* Ensure text is on top */
+}
+
+.wrapper {
+  @apply grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:gap-2.5 gap-4 place-items-center mt-5;
+}
+.hero-bg {
+  @apply bg-[hsl(0,0%,3%)] rounded-lg p-5 outline-1 outline-[hsl(0,0%,13%)] flex flex-col justify-center items-center;
+}
+
+h1 {
+  @apply text-white text-center my-2.5 text-2xl md:ml-7;
+}
+
+@layer components {
+  .navBar {
+    @apply justify-between items-center block md:flex lg:flex xl:flex 2xl:flex;
+  }
+  .card {
+    @apply bg-black rounded-lg p-5 border-1 border-[hsl(0,0%,26%)] h-72 w-80 flex flex-col justify-center items-center capitalize;
+  }
+  .btn {
+    @apply rounded-xl  shadow-2xl hover:shadow-green-500 p-1 border-1  base-outline cursor-pointer my-2.5 w-32 hover:scale-110 duration-500 transition ease-in-out hover:border-1 hover:border-green-500;
+  }
+  .stats {
+    @apply flex flex-col justify-center items-center bg-[hsl(0,0%,3%)] outline-2 outline-[hsl(0,0%,13%)] rounded py-3.5 mx-5;
+  }
+  .image {
+    @apply rounded-full border-2 border-amber-300 hover:scale-110 duration-500 ease-in-out h-32 shadow-orange-100 shadow-2xl hover:shadow-amber-400;
+  }
+}
+
+li {
+  @apply hover:scale-110 duration-500;
+}
+
+@utility base-outline {
+  @apply border-2 border-[hsl(0,0%,13%)];
+}
