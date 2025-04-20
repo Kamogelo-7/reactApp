@@ -145,11 +145,37 @@ p {
   z-index: 10; /* Ensure text is on top */
 }
 
+@layer components {
+  .hero-bg {
+    @apply relative p-5 rounded-xl flex flex-col justify-center items-center z-10 bg-[hsl(0,0%,3%)];
+  }
+
+  .hero-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 3px;
+    background: linear-gradient(90deg, #f4d803, #ffffff);
+    border-radius: inherit;
+    z-index: -1;
+    transition: filter 0.7s ease;
+    filter: blur(0); /* Default blur off */
+  }
+
+  .hero-bg:hover::before {
+    filter: blur(1.2em); /* Glowing halo on hover */
+  }
+
+  .hero-bg:active::before {
+    filter: blur(0.2em); /* Dim down when clicked */
+  }
+}
+
 .wrapper {
   @apply grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:gap-2.5 gap-4 place-items-center mt-5;
 }
 .hero-bg {
-  @apply bg-[hsl(0,0%,3%)] rounded-lg p-5 outline-1 outline-[hsl(0,0%,13%)] flex flex-col justify-center items-center;
+  @apply bg-[hsl(0,0%,3%)] rounded-lg p-5 outline-1 outline-[#ffffff2a] flex flex-col justify-center items-center;
 }
 
 h1 {
